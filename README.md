@@ -4,12 +4,16 @@ Mymori is a simple memory game
 # Endpoints
 
 * Create user
+* Get user
 * Delete user
 * Create game
+* Get game
 * Delete game
 * Create card
+* Get card
 * Delete card
 * Create a list of cards
+* Get a list of cards
 * Delete a list of cards
 * List games user has played
 
