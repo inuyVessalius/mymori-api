@@ -1,4 +1,4 @@
-# mymori
+# Mymori
 Mymori is a simple memory game
 
 # Endpoints
