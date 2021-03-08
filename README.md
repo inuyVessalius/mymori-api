@@ -4,7 +4,7 @@ Mymori is a simple memory game
 # Endpoints
 
 * (POST) /createUser - Creates an user - working
-* (GET) /getUserByName/{name} - Gets an user by it's first name
+* (GET) /getUserByName/{name} - Gets an user by it's first name - not working
 * (GET) /getUser/{id} - Gets an user by it's id - working
 * (DELETE) /deleteUser/{id} - Deletes an user by it's id - working
 * (POST) /createGame - Creates a game - working
