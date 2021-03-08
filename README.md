@@ -1,4 +1,4 @@
-# mymori-rust
+# mymori
 Mymori is a simple memory game
 
 # Endpoints
