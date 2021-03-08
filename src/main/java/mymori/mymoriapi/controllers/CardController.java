@@ -19,7 +19,7 @@ public class CardController {
         return "Card created";
     }
 
-    @GetMapping("/getCardById/{id}")
+    @GetMapping("/getCard/{id}")
     public Optional<Card> get(@PathVariable long id){
         return cardRepository.findById(id);
     }
