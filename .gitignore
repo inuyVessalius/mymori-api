@@ -2,4 +2,10 @@
 build
 gradle
 .gradle
+bin
 mymori-api.iml
+.classpath
+.project
+.settings
+
+.DS_Store
