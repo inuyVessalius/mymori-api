@@ -1,3 +1,4 @@
+![workflow](https://github.com/inuyVessalius/mymori-api/actions/workflows/gradle.yml/badge.svg)
 # Mymori
 Mymori is a simple memory game
 
