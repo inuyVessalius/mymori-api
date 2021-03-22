@@ -19,6 +19,13 @@ group = 'mymori'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+test {
+  testLogging {
+    events "passed", "skipped", "failed", "standardOut", "standardError"
+  }
+  dependsOn 'cleanTest'
+}
+
 repositories {
     mavenCentral()
 }
@@ -34,7 +41,7 @@ dependencies {
 sourceSets {
     test {
         java {
-            srcDirs = ["test/java/mymori/mymoriapi"] 
+            srcDirs = ["test/java/mymori/mymoriapi/"] 
         }
     }
 }
