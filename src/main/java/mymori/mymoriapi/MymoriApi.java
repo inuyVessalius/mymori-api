@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MymoriApiApplication {
+public class MymoriApi {
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -17,7 +17,7 @@ public class MymoriApiApplication {
     CardRepository cardRepository;
 
     public static void main(String[] args) {
-        SpringApplication.run(MymoriApiApplication.class, args);
+        SpringApplication.run(MymoriApi.class, args);
     }
 
 }

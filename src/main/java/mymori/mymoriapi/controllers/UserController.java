@@ -20,7 +20,7 @@ public class UserController {
         return "User created";
     }
 
-    @GetMapping("/user/{name}")
+    @GetMapping("/userWithName/{name}")
     public User get(@PathVariable String name) {
 
         try {
