@@ -18,7 +18,7 @@ public class CardController {
 
     @PutMapping("/card")
     public String create(@RequestBody Card card) {
-        if (cardRepository.findById(card.getId()).equals(0))
+        if (!cardRepository.findById(card.getId()).isPresent())
             try {
                 cardRepository.save(new Card(card.getQuestion(), card.getQuestion()));
                 return card.toString();

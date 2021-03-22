@@ -32,7 +32,7 @@ public class UserTests {
     ResponseEntity<String> result = restTemplate
         .exchange(RequestEntity.put(uri).header("X-COM-PERSIST", "true").body(user), String.class);
 
-        Assertions.assertEquals(200, result.getStatusCodeValue());
+    Assertions.assertEquals(200, result.getStatusCodeValue());
   }
 
   @Test
@@ -54,8 +54,8 @@ public class UserTests {
     ResponseEntity<String> result = restTemplate
         .exchange(RequestEntity.put(uri).header("X-COM-PERSIST", "true").body(user), String.class);
 
-        Assertions.assertEquals(200, result.getStatusCodeValue());
-  
+    Assertions.assertEquals(200, result.getStatusCodeValue());
+
     baseUrl = "http://localhost:" + randomServerPort + "/userWithName/Adam";
     uri = new URI(baseUrl);
 

@@ -13,7 +13,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 
-import mymori.mymoriapi.models.User;
+import mymori.mymoriapi.models.Card;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class CardTests {
@@ -27,10 +27,10 @@ public class CardTests {
   public void testAddCardSuccess() throws URISyntaxException {
     final String baseUrl = "http://localhost:" + randomServerPort + "/card/";
     URI uri = new URI(baseUrl);
-    User user = new User("Question", "Answer");
+    Card card = new Card("Question", "Answer");
 
     ResponseEntity<String> result = restTemplate
-        .exchange(RequestEntity.put(uri).header("X-COM-PERSIST", "true").body(user), String.class);
+        .exchange(RequestEntity.put(uri).header("X-COM-PERSIST", "true").body(card), String.class);
 
         Assertions.assertEquals(200, result.getStatusCodeValue());
   }
@@ -49,10 +49,10 @@ public class CardTests {
   public void testGetCardSuccess() throws URISyntaxException {
     String baseUrl = "http://localhost:" + randomServerPort + "/card/";
     URI uri = new URI(baseUrl);
-    User user = new User("Question", "Answer");
+    Card card = new Card("Question", "Answer");
 
     ResponseEntity<String> result = restTemplate
-        .exchange(RequestEntity.put(uri).header("X-COM-PERSIST", "true").body(user), String.class);
+        .exchange(RequestEntity.put(uri).header("X-COM-PERSIST", "true").body(card), String.class);
 
         Assertions.assertEquals(200, result.getStatusCodeValue());
   

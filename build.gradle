@@ -19,13 +19,6 @@ group = 'mymori'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-test {
-  testLogging {
-    events "passed", "skipped", "failed", "standardOut", "standardError"
-  }
-  dependsOn 'cleanTest'
-}
-
 repositories {
     mavenCentral()
 }
@@ -38,13 +31,10 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
-sourceSets {
-    test {
-        java {
-            srcDirs = ["test/java/mymori/mymoriapi/"] 
-        }
-    }
-}
 test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+    dependsOn 'cleanTest'
     useJUnitPlatform()
 }

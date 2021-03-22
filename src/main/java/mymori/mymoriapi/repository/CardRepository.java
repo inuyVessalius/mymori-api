@@ -1,6 +1,5 @@
 package mymori.mymoriapi.repository;
 
-import mymori.mymoriapi.controllers.CardController;
 import mymori.mymoriapi.models.Card;
 
 import java.util.List;
