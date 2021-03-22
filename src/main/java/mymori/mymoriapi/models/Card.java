@@ -21,6 +21,12 @@ public class Card {
         this.answer = answer;
     }
 
+    public Card(long id, String question, String answer) {
+        this.id = id;
+        this.question = question;
+        this.answer = answer;
+    }
+
     @Override
     public String toString() {
         return String.format("Card[id=%d, question='%s', answer='%s']", id, question, answer);
@@ -40,5 +46,9 @@ public class Card {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
