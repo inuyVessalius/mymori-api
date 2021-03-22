@@ -9,13 +9,18 @@ import mymori.mymoriapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import java.util.Optional;
 
 @RestController
+@Api(value = "User")
 public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @ApiOperation(value = "Creaste a user")
     @PutMapping("/user")
     public String create(@RequestBody User user) {
         if (userRepository.findByFirstName(user.getFirstName()).size() == 0)
