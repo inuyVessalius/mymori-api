@@ -43,3 +43,5 @@ jobs:
         run: ./docker_init.sh
       - name: Build with Gradle
         run: gradle build
+      - name: Test with Gradle
+        run: gradle test
