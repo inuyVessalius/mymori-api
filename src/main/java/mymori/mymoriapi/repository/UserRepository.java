@@ -9,4 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface UserRepository extends CrudRepository<User, Long>{
 	List<User> findByFirstName(String FirstName);
+
+    void deleteByFirstName(String name);
 }

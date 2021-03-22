@@ -24,9 +24,19 @@ public class User {
         this.lastName = lastName;
     }
 
+    public User(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     @Override
     public String toString() {
         return String.format("User[id=%d, firstName='%s', lastName='%s']", id, firstName, lastName);
+    }
+    
+    public long getId() {
+        return id;
     }
     
     public String getFirstName() {
