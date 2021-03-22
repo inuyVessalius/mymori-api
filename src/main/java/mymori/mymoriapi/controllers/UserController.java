@@ -13,14 +13,14 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping("/createUser")
+    @PostMapping("/user")
     public String create(@RequestBody User user) {
         userRepository.save(new User(user.getFirstName(), user.getLastName()));
         System.out.println(user.toString());
         return "User created";
     }
 
-    @GetMapping("/getUserByName/{name}")
+    @GetMapping("/user/{name}")
     public User get(@PathVariable String name) {
 
         try {
@@ -30,12 +30,12 @@ public class UserController {
         }
     }   
 
-    @GetMapping("/getUser/{id}")
+    @GetMapping("/user/{id}")
     public Optional<User> get(@PathVariable long id) {
         return userRepository.findById(id);
     }
 
-    @DeleteMapping("/deleteUser/{id}")
+    @DeleteMapping("/user/{id}")
     public String delete(@PathVariable long id) {
         userRepository.deleteById(id);
         return "User deleted";

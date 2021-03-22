@@ -28,6 +28,7 @@ public class User {
     public String toString() {
         return String.format("User[id=%d, firstName='%s', lastName='%s']", id, firstName, lastName);
     }
+    
     public String getFirstName() {
         return firstName;
     }

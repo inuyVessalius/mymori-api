@@ -12,19 +12,19 @@ public class CardController {
     @Autowired
     CardRepository cardRepository;
 
-    @PostMapping("/createCard")
+    @PostMapping("/card")
     public String create(@RequestBody Card card){
         this.cardRepository.save(new Card(card.getQuestion(), card.getAnswer()));
 
         return "Card created";
     }
 
-    @GetMapping("/getCard/{id}")
+    @GetMapping("/card/{id}")
     public Optional<Card> get(@PathVariable long id){
         return cardRepository.findById(id);
     }
 
-    @DeleteMapping("/deleteCard/{id}")
+    @DeleteMapping("/card/{id}")
     public String delete(@PathVariable long id){
         cardRepository.deleteById(id);
         return "Card deleted";

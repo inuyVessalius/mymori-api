@@ -10,7 +10,7 @@ public class GameController {
     @Autowired
     GameRepository gameRepository;
 
-    @PostMapping("/createGame")
+    @PostMapping("/game")
     public String create(@RequestBody Game game){
         gameRepository.save(new Game(game.getUserId()));
 
@@ -22,7 +22,7 @@ public class GameController {
 //        return repository.findByUserId(userId, gameId);
 //    }
 
-    @DeleteMapping("/deleteGame/{id}")
+    @DeleteMapping("/game/{id}")
     public String delete(@PathVariable long id){
         gameRepository.deleteById(id);
         return "Game deleted";
