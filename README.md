@@ -9,15 +9,14 @@ Mymori is a simple memory game
 * (GET) /getUser/{id} - Gets an user by it's id - working
 * (DELETE) /deleteUser/{id} - Deletes an user by it's id - working
 * (POST) /createGame - Creates a game - working
-* (GET) /getGameByUserId - Gets a game by the player's id
+* (GET) /getGameByUserId - Gets a game by the player's id - working
 * (DELETE) /deleteGame/{id} - Deletes a game by it's id - working
 * (POST) /createCard - Creates a card - working
 * (GET) /getCard/{id} - Gets a card by it's id - working
 * (DELETE) /deleteCard/{id} - Deletes a card by it's id - working
-* (POST) /createCards - Creates a list of cards - missing
-* (GET) /getAllCards - Gets a list of cards - missing
-* (DELETE) /deleteCards - Deletes a list of cards - missing
-* (GET) /getPlayerGames/{id} - Gets games user has played - missing
+* (POST) /createCards - Creates a list of cards - working
+* (GET) /getAllCards - Gets a list of cards - working
+* (DELETE) /deleteCards - Deletes a list of cards - working
 
 # User Stories
 
