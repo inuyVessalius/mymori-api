@@ -28,8 +28,7 @@ done
 
 >&2 echo "Creating tables..."
 
-psql -h "localhost" -U "${DB_USER}" -p "${DB_PORT}" -d "mymori" -c "CREATE SCHEMA mymori;
-${DB_SCRIPT}"
+psql -h "localhost" -U "${DB_USER}" -p "${DB_PORT}" -d "mymori" -c "${DB_SCRIPT}"
 
 >&2 echo "Tables created"
 
