@@ -1,7 +1,12 @@
 package mymori.mymoriapi.controllers;
 
+import mymori.mymoriapi.exceptions.GameCouldntBeSavedException;
+import mymori.mymoriapi.exceptions.GameNotFoundException;
 import mymori.mymoriapi.models.Game;
 import mymori.mymoriapi.repository.GameRepository;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,20 +15,37 @@ public class GameController {
     @Autowired
     GameRepository gameRepository;
 
-    @PostMapping("/game")
-    public String create(@RequestBody Game game){
-        gameRepository.save(new Game(game.getUserId()));
-
-        return "Game created";
+    @PutMapping("/game")
+    public Game create(@RequestBody Game game) {
+        try {
+            Game newGame = gameRepository.save(game);
+            return newGame;
+        } catch (Exception e) {
+            throw new GameCouldntBeSavedException();
+        }
     }
 
-//    @GetMapping("/getGameByUserId/{userId}&{gameId}")
-//    public Game get(@PathVariable long userId, @PathVariable long gameId){
-//        return repository.findByUserId(userId, gameId);
-//    }
+    @GetMapping("/game/{id}")
+    public Optional<Game> get(@PathVariable long id) {
+        try {
+            return gameRepository.findById(id);
+        } catch (Exception e) {
+            throw new GameNotFoundException();
+        }
+    }
+
+    @GetMapping("/gameByUserId/{gameId}&{userId}")
+    public Game get(@PathVariable long gameId, @PathVariable long userId) {
+        try {
+            System.out.println(gameRepository.findByUserId(gameId, userId));
+            return gameRepository.findByUserId(gameId, userId);
+        } catch (Exception e) {
+            throw new GameNotFoundException();
+        }
+    }
 
     @DeleteMapping("/game/{id}")
-    public String delete(@PathVariable long id){
+    public String delete(@PathVariable long id) {
         gameRepository.deleteById(id);
         return "Game deleted";
     }

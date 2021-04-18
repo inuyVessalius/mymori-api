@@ -9,6 +9,7 @@ import mymori.mymoriapi.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,16 +18,26 @@ public class CardController {
     CardRepository cardRepository;
 
     @PutMapping("/card")
-    public String create(@RequestBody Card card) {
+    public Card create(@RequestBody Card card) {
         if (!cardRepository.findById(card.getId()).isPresent())
             try {
-                cardRepository.save(new Card(card.getQuestion(), card.getQuestion()));
-                return card.toString();
+                Card newCard = cardRepository.save(new Card(card.getQuestion(), card.getQuestion()));
+                return newCard;
             } catch (Exception e) {
                 throw new CardCouldntBeSavedException();
             }
         else
             throw new CardAlreadyExistsException();
+    }
+
+    @PutMapping("/cards")
+    public Iterable<Card> create(@RequestBody Iterable<Card> cards) {
+        try {
+            Iterable<Card> newCards = cardRepository.saveAll(cards);
+            return newCards;
+        } catch (Exception e) {
+            throw new CardCouldntBeSavedException();
+        }
     }
 
     @PostMapping("/card")
@@ -58,6 +69,15 @@ public class CardController {
         }
     }
 
+    @GetMapping("/cards")
+    public Iterable<Card> get() {
+        try {
+            return cardRepository.findAll();
+        } catch (Exception e) {
+            throw new CardNotFoundException();
+        }
+    }
+
     @DeleteMapping("/cardWithQuestion/{question}")
     public String delete(@PathVariable String question) {
         try {
@@ -73,6 +93,21 @@ public class CardController {
         try {
             cardRepository.deleteById(id);
             return "Card deleted";
+        } catch (Exception e) {
+            throw new CardCouldntBeRemovedException();
+        }
+    }
+
+    @DeleteMapping("/cards")
+    public String deleteCards(@RequestBody Iterable<Card> cards) {
+        try {
+            for (Card card : cards) {
+                if (card.getId() == 0)
+                    throw new Exception();
+            }
+
+            cardRepository.deleteAll(cards);
+            return "Cards deleted";
         } catch (Exception e) {
             throw new CardCouldntBeRemovedException();
         }

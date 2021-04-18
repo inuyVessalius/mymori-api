@@ -10,18 +10,29 @@ public class Game {
     private long id;
     @Column(name = "user_id")
     private long userId;
-    // TODO relationship with cards
+    @Column(name = "score")
+    private long score;
 
     protected Game() {
     }
 
-    public Game(long userId) {
-        this.userId = userId;
+    public Game(Game game) {
+        this.id = game.getId();
+        this.userId = game.getUserId();
+        this.score = game.getScore();
     }
 
     @Override
     public String toString() {
-        return String.format("Game[id=%d, user='%s']", id, userId);
+        return String.format("{id=%s, userId='%s', score=%s}", id, userId, score);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getUserId() {
@@ -30,5 +41,13 @@ public class Game {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public long getScore() {
+        return score;
+    }
+
+    public void setScore(long score) {
+        this.score = score;
     }
 }

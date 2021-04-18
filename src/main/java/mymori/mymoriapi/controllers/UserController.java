@@ -22,11 +22,11 @@ public class UserController {
 
     @ApiOperation(value = "Creaste a user")
     @PutMapping("/user")
-    public String create(@RequestBody User user) {
+    public User create(@RequestBody User user) {
         if (userRepository.findByFirstName(user.getFirstName()).size() == 0)
             try {
-                userRepository.save(new User(user.getFirstName(), user.getLastName()));
-                return user.toString();
+                User newUser = userRepository.save(new User(user.getFirstName(), user.getLastName()));
+                return newUser;
             } catch (Exception e) {
                 throw new UserCouldntBeSavedException();
             }

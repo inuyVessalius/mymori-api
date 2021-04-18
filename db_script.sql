@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS mymori.games
     id         SERIAL NOT NULL,
     PRIMARY KEY (id),
     user_id SERIAL NOT NULL,
+    score INT NOT NULL,
 
     CONSTRAINT fk_user
         FOREIGN KEY(user_id)
