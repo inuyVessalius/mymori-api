@@ -225,8 +225,8 @@ public class CardTests {
     String baseUrl = "http://localhost:" + randomServerPort + "/card/";
     URI uri = new URI(baseUrl);
     Card card = new Card();
-    card.setQuestion(null);
-    card.setAnswer(null);
+    card.setQuestion("null");
+    card.setAnswer("null");
 
     ResponseEntity<String> result = restTemplate
         .exchange(RequestEntity.put(uri).header("X-COM-PERSIST", "true").body(card), String.class);

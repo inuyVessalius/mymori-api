@@ -19,6 +19,8 @@ public class CardController {
     @PutMapping("/card")
     public Card create(@RequestBody Card card) {
         try {
+            if (card.getQuestion().isEmpty() || card.getQuestion().equals("null") || card.getQuestion() == null || card.getAnswer().isEmpty() || card.getAnswer().equals("null") || card.getAnswer() == null)
+                throw new CardCouldntBeSavedException();
             if (!cardRepository.findById(card.getId()).isPresent()) {
                 Card newCard = cardRepository.save(card);
                 return newCard;
@@ -42,6 +44,8 @@ public class CardController {
     @PostMapping("/card")
     public String update(@RequestBody Card card) {
         try {
+            if (card.getQuestion().isEmpty() || card.getQuestion().equals("null") || card.getQuestion() == null || card.getAnswer().isEmpty() || card.getAnswer().equals("null") || card.getAnswer() == null)
+                throw new CardCouldntBeSavedException();
             Card oldCard = cardRepository.findByQuestion(card.getQuestion()).get(0);
             card.setId(oldCard.getId());
             cardRepository.save(card);
@@ -54,7 +58,7 @@ public class CardController {
     @GetMapping("/cardWithQuestion/{question}")
     public Card get(@PathVariable String question) {
         try {
-            if (question.isEmpty())
+            if (question.isEmpty() || question.equals("null") || question == null)
                 throw new CardCouldntBeRemovedException();
             return cardRepository.findByQuestion(question).get(0);
         } catch (Exception e) {
@@ -85,7 +89,7 @@ public class CardController {
     @DeleteMapping("/cardWithQuestion/{question}")
     public String delete(@PathVariable String question) {
         try {
-            if (question.isEmpty())
+            if (question.isEmpty() || question.equals("null") || question == null)
                 throw new CardCouldntBeRemovedException();
             cardRepository.deleteByQuestion(question);
             return "Card deleted";
