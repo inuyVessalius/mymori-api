@@ -35,6 +35,7 @@ public class CardTests {
     Assertions.assertEquals("Answer", card.getAnswer());
     Assertions.assertEquals("Card[id=0, question='Question', answer='Answer']", card.toString());
   }
+
   @Test
   public void testCardCreationFromOtherCard() {
     Card card = new Card();
@@ -141,7 +142,6 @@ public class CardTests {
     card.setQuestion(null);
     card.setAnswer(null);
 
-    
     ResponseEntity<String> result = restTemplate
         .exchange(RequestEntity.put(uri).header("X-COM-PERSIST", "true").body(card), String.class);
 
@@ -166,8 +166,7 @@ public class CardTests {
     list.add(card);
     list.add(card1);
 
-    ResponseEntity<String> result = restTemplate
-        .exchange(RequestEntity.delete(uri).build(), String.class);
+    ResponseEntity<String> result = restTemplate.exchange(RequestEntity.delete(uri).build(), String.class);
 
     Assertions.assertEquals(400, result.getStatusCodeValue());
   }
