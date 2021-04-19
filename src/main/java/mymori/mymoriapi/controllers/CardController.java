@@ -9,7 +9,6 @@ import mymori.mymoriapi.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,15 +18,15 @@ public class CardController {
 
     @PutMapping("/card")
     public Card create(@RequestBody Card card) {
-        if (!cardRepository.findById(card.getId()).isPresent())
-            try {
-                Card newCard = cardRepository.save(new Card(card.getQuestion(), card.getQuestion()));
+        try {
+            if (!cardRepository.findById(card.getId()).isPresent()) {
+                Card newCard = cardRepository.save(card);
                 return newCard;
-            } catch (Exception e) {
-                throw new CardCouldntBeSavedException();
-            }
-        else
-            throw new CardAlreadyExistsException();
+            } else
+                throw new CardAlreadyExistsException();
+        } catch (Exception e) {
+            throw new CardCouldntBeSavedException();
+        }
     }
 
     @PutMapping("/cards")
@@ -44,7 +43,8 @@ public class CardController {
     public String update(@RequestBody Card card) {
         try {
             Card oldCard = cardRepository.findByQuestion(card.getQuestion()).get(0);
-            cardRepository.save(new Card(oldCard.getId(), card.getQuestion(), card.getAnswer()));
+            card.setId(oldCard.getId());
+            cardRepository.save(card);
             return card.toString();
         } catch (Exception e) {
             throw new CardCouldntBeSavedException();
@@ -54,6 +54,8 @@ public class CardController {
     @GetMapping("/cardWithQuestion/{question}")
     public Card get(@PathVariable String question) {
         try {
+            if (question.isEmpty())
+                throw new CardCouldntBeRemovedException();
             return cardRepository.findByQuestion(question).get(0);
         } catch (Exception e) {
             throw new CardNotFoundException();
@@ -63,6 +65,8 @@ public class CardController {
     @GetMapping("/card/{id}")
     public Optional<Card> get(@PathVariable long id) {
         try {
+            if (id == 0)
+                throw new CardNotFoundException();
             return cardRepository.findById(id);
         } catch (Exception e) {
             throw new CardNotFoundException();
@@ -81,6 +85,8 @@ public class CardController {
     @DeleteMapping("/cardWithQuestion/{question}")
     public String delete(@PathVariable String question) {
         try {
+            if (question.isEmpty())
+                throw new CardCouldntBeRemovedException();
             cardRepository.deleteByQuestion(question);
             return "Card deleted";
         } catch (Exception e) {
@@ -91,6 +97,8 @@ public class CardController {
     @DeleteMapping("/card/{id}")
     public String delete(@PathVariable long id) {
         try {
+            if (id == 0)
+                throw new CardCouldntBeRemovedException();
             cardRepository.deleteById(id);
             return "Card deleted";
         } catch (Exception e) {

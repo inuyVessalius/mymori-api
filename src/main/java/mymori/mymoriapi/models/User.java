@@ -16,18 +16,13 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    protected User() {
+    public User() {
     }
 
-    public User(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public User(long id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(User user) {
+        this.id = user.id;
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
     }
 
     @Override
@@ -37,6 +32,10 @@ public class User {
     
     public long getId() {
         return id;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
     }
     
     public String getFirstName() {

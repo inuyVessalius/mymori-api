@@ -28,6 +28,8 @@ public class GameController {
     @GetMapping("/game/{id}")
     public Optional<Game> get(@PathVariable long id) {
         try {
+            if (id == 0)
+                throw new GameNotFoundException();
             return gameRepository.findById(id);
         } catch (Exception e) {
             throw new GameNotFoundException();
@@ -37,7 +39,6 @@ public class GameController {
     @GetMapping("/gameByUserId/{gameId}&{userId}")
     public Game get(@PathVariable long gameId, @PathVariable long userId) {
         try {
-            System.out.println(gameRepository.findByUserId(gameId, userId));
             return gameRepository.findByUserId(gameId, userId);
         } catch (Exception e) {
             throw new GameNotFoundException();

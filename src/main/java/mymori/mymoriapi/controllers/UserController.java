@@ -23,22 +23,23 @@ public class UserController {
     @ApiOperation(value = "Creaste a user")
     @PutMapping("/user")
     public User create(@RequestBody User user) {
-        if (userRepository.findByFirstName(user.getFirstName()).size() == 0)
-            try {
-                User newUser = userRepository.save(new User(user.getFirstName(), user.getLastName()));
+        try {
+            if (userRepository.findByFirstName(user.getFirstName()).size() == 0) {
+                User newUser = userRepository.save(user);
                 return newUser;
-            } catch (Exception e) {
-                throw new UserCouldntBeSavedException();
-            }
-        else
-            throw new UserAlreadyExistsException();
+            } else
+                throw new UserAlreadyExistsException();
+        } catch (Exception e) {
+            throw new UserCouldntBeSavedException();
+        }
     }
 
     @PostMapping("/user")
     public String update(@RequestBody User user) {
         try {
             User oldUser = userRepository.findByFirstName(user.getFirstName()).get(0);
-            userRepository.save(new User(oldUser.getId(), user.getFirstName(), user.getLastName()));
+            user.setId(oldUser.getId());
+            userRepository.save(user);
             return user.toString();
         } catch (Exception e) {
             throw new UserCouldntBeSavedException();
@@ -57,6 +58,8 @@ public class UserController {
     @GetMapping("/user/{id}")
     public Optional<User> get(@PathVariable long id) {
         try {
+            if (id == 0)
+                throw new UserNotFoundException();
             return userRepository.findById(id);
         } catch (Exception e) {
             throw new UserNotFoundException();
@@ -66,6 +69,8 @@ public class UserController {
     @DeleteMapping("/userWithName/{name}")
     public String delete(@PathVariable String name) {
         try {
+            if (name.isEmpty())
+                throw new UserCouldntBeRemovedException();
             userRepository.deleteByFirstName(name);
             return "User deleted";
         } catch (Exception e) {
@@ -76,6 +81,8 @@ public class UserController {
     @DeleteMapping("/user/{id}")
     public String delete(@PathVariable long id) {
         try {
+            if (id == 0)
+                throw new UserCouldntBeRemovedException();
             userRepository.deleteById(id);
             return "User deleted";
         } catch (Exception e) {

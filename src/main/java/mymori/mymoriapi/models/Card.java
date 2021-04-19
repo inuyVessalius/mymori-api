@@ -13,18 +13,13 @@ public class Card {
     @Column(name = "answer")
     private String answer;
 
-    protected Card() {
+    public Card() {
     }
 
-    public Card(String question, String answer) {
-        this.question = question;
-        this.answer = answer;
-    }
-
-    public Card(long id, String question, String answer) {
-        this.id = id;
-        this.question = question;
-        this.answer = answer;
+    public Card(Card card) {
+        this.id = card.id;
+        this.question = card.question;
+        this.answer = card.answer;
     }
 
     @Override
@@ -50,5 +45,9 @@ public class Card {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

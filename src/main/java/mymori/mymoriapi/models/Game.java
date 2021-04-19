@@ -13,7 +13,7 @@ public class Game {
     @Column(name = "score")
     private long score;
 
-    protected Game() {
+    public Game() {
     }
 
     public Game(Game game) {
@@ -24,7 +24,7 @@ public class Game {
 
     @Override
     public String toString() {
-        return String.format("{id=%s, userId='%s', score=%s}", id, userId, score);
+        return String.format("{id=%s, userId=%s, score=%s}", id, userId, score);
     }
 
     public long getId() {
