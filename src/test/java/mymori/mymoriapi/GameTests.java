@@ -148,14 +148,14 @@ public class GameTests {
 
     Assertions.assertEquals(404, result.getStatusCodeValue());
 
-    baseUrl = "http://localhost:" + randomServerPort + "/game/1";
+    baseUrl = "http://localhost:" + randomServerPort + "/game/2";
     uri = new URI(baseUrl);
 
     result = this.restTemplate.getForEntity(uri, String.class);
 
     // Verify request succeed
     Assertions.assertEquals(200, result.getStatusCodeValue());
-    baseUrl = "http://localhost:" + randomServerPort + "/game/1";
+    baseUrl = "http://localhost:" + randomServerPort + "/game/2";
     uri = new URI(baseUrl);
 
     result = restTemplate.exchange(RequestEntity.delete(uri).build(), String.class);
