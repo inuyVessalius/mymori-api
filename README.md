@@ -23,4 +23,4 @@ Mymori is a simple memory game
 * I as a player want to create an account
 * I as a player want to play a game
 * I as a player want to add cards to my game
-* I as a player want to see the games I've played 
+* I as a player want to see the games I've played
