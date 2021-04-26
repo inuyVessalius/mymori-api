@@ -126,7 +126,7 @@ public class GameTests {
 
     ResponseEntity<String> result = restTemplate.exchange(RequestEntity.delete(uri).build(), String.class);
 
-    Assertions.assertEquals(500, result.getStatusCodeValue());
+    Assertions.assertEquals(404, result.getStatusCodeValue());
   }
 
   @Test
@@ -141,67 +141,57 @@ public class GameTests {
 
   @Test
   public void testGetGameSuccess() throws URISyntaxException {
-    try {
       String baseUrl = "http://localhost:" + randomServerPort + "/game";
       URI uri = new URI(baseUrl);
       Game game = new Game();
-      game.setUserId(1l);
+      game.setUserId(0);
       game.setScore(10l);
 
       ResponseEntity<String> result = restTemplate
           .exchange(RequestEntity.put(uri).header("X-COM-PERSIST", "true").body(game), String.class);
 
-      // Assertions.assertEquals(200, result.getStatusCodeValue());
+      Assertions.assertEquals(404, result.getStatusCodeValue());
 
-      baseUrl = "http://localhost:" + randomServerPort + "/game/1";
+      baseUrl = "http://localhost:" + randomServerPort + "/game/";
       uri = new URI(baseUrl);
 
       result = this.restTemplate.getForEntity(uri, String.class);
 
       // Verify request succeed
-      // Assertions.assertEquals(200, result.getStatusCodeValue());
-      baseUrl = "http://localhost:" + randomServerPort + "/game/1";
+      Assertions.assertEquals(405, result.getStatusCodeValue());
+      baseUrl = "http://localhost:" + randomServerPort + "/game/";
       uri = new URI(baseUrl);
 
       result = restTemplate.exchange(RequestEntity.delete(uri).build(), String.class);
 
-      // Assertions.assertEquals(500, result.getStatusCodeValue());
-
-      Assertions.assertEquals(true, true);
-    } catch (Exception e) {
-
-    }
+      Assertions.assertEquals(405, result.getStatusCodeValue());
   }
 
   @Test
   public void testGetGameFailed() throws URISyntaxException {
-    try {
-      String baseUrl = "http://localhost:" + randomServerPort + "/game";
-      URI uri = new URI(baseUrl);
-      Game game = new Game();
-      game.setUserId(1l);
-      game.setScore(0);
+    String baseUrl = "http://localhost:" + randomServerPort + "/game";
+    URI uri = new URI(baseUrl);
+    Game game = new Game();
+    game.setUserId(0);
+    game.setScore(0);
 
-      ResponseEntity<String> result = restTemplate
-          .exchange(RequestEntity.put(uri).header("X-COM-PERSIST", "true").body(game), String.class);
+    ResponseEntity<String> result = restTemplate
+        .exchange(RequestEntity.put(uri).header("X-COM-PERSIST", "true").body(game), String.class);
 
-      Assertions.assertEquals(200, result.getStatusCodeValue());
+    Assertions.assertEquals(404, result.getStatusCodeValue());
 
-      baseUrl = "http://localhost:" + randomServerPort + "/game/";
-      uri = new URI(baseUrl);
+    baseUrl = "http://localhost:" + randomServerPort + "/game/0";
+    uri = new URI(baseUrl);
 
-      result = this.restTemplate.getForEntity(uri, String.class);
+    result = this.restTemplate.getForEntity(uri, String.class);
 
-      // Verify request succeed
-      Assertions.assertEquals(405, result.getStatusCodeValue());
-      baseUrl = "http://localhost:" + randomServerPort + "/game/";
-      uri = new URI(baseUrl);
+    // Verify request succeed
+    Assertions.assertEquals(404, result.getStatusCodeValue());
+    baseUrl = "http://localhost:" + randomServerPort + "/game/0";
+    uri = new URI(baseUrl);
 
-      result = restTemplate.exchange(RequestEntity.delete(uri).build(), String.class);
+    result = restTemplate.exchange(RequestEntity.delete(uri).build(), String.class);
 
-      Assertions.assertEquals(405, result.getStatusCodeValue());
-    } catch (Exception e) {
-
-    }
+    Assertions.assertEquals(404, result.getStatusCodeValue());
   }
 }

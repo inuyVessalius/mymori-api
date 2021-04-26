@@ -18,6 +18,8 @@ public class GameController {
     @PutMapping("/game")
     public Game create(@RequestBody Game game) {
         try {
+            if (game.getUserId() == 0)
+                throw new GameCouldntBeSavedException();
             Game newGame = gameRepository.save(game);
             return newGame;
         } catch (Exception e) {
@@ -47,7 +49,11 @@ public class GameController {
 
     @DeleteMapping("/game/{id}")
     public String delete(@PathVariable long id) {
-        gameRepository.deleteById(id);
-        return "Game deleted";
+        try {
+            gameRepository.deleteById(id);
+            return "Game deleted";
+        } catch (Exception e) {
+            throw new GameNotFoundException();
+        }
     }
 }
